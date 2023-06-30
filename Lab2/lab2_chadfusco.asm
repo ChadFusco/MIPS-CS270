@@ -1,5 +1,3 @@
-# Write comments in your program that state your name, the programming logic, and any assembly language instruction line level details you feel you'd like to explain how you are using the assembly language instructions to perform the calculation of the sum.
-
 # NAME:
 # -------------------
 # Chad Fusco
