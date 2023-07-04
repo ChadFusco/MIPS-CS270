@@ -15,3 +15,17 @@
 # else
 #       assign the value of 1 to the register $t0
 
+.data
+	a: .word 5
+	
+.globl main
+
+.text
+	main:
+    lw $t1, a
+    slt $t0, $zero, $t1 # $t0 = 0 < a ? 1 : 0
+    bge $t1, $zero, notNegative # go to notNegative if a >= 0
+    addi $t0, $zero, -1
+    notNegative:
+    li $v0, 10
+    syscall
