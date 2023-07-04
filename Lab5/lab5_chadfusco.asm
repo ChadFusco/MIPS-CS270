@@ -17,16 +17,28 @@
 #       assign the value of 1 to the register $t0
 
 .data
-	a: .word 5
+	tenints:  .word 3, 17, 12, 9, 36, 102, 81, 500, -1, 9
 	
 .globl main
 
 .text
 	main:
-    lw $t1, a
-    slt $t0, $zero, $t1 # $t0 = 0 < a ? 1 : 0
-    bge $t1, $zero, notNegative # go to notNegative if a >= 0
-    addi $t0, $zero, -1
+        la $t0, tenints # load the address of tenints into $t0
+        li $t1, 0 # initialize i to 0
+        li $t2, 0 # initialize sum to 0
+    loop:
+        sll $t3, $t1, 2 # $t3 is the array index pointer
+        addu $t3, $t3, $t0 # point pointer to address of current array element
+        lw $t3, 0($t3) # load current array element into $t3
+        addu $t2, $t2, $t3 # add to sum
+        addiu $t1, $t1, 1 # increment index
+        slti $t3, $t1, 10 # test if i < 10
+        bne $t3, $zero, loop # continue looping if i < 10
+    compare:
+        li $t1, 767
+        slt $t0, $t1, $t2 # $t0 = 767 < sum ? 1 : 0
+        bge $t2, $t1, notNegative # go to notNegative if sum >= 767
+        addi $t0, $zero, -1
     notNegative:
-    li $v0, 10
-    syscall
+        li $v0, 10
+        syscall
