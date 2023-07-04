@@ -1,0 +1,28 @@
+# 
+#
+#
+# This MIPS assembly language programming pseudocode logic implements the following
+# high level language loop logic to sum
+# the values of an array of integers called numbers:
+#
+#      
+#	int total = 0;
+#	for (int i=0; i<10; i++) {
+#		total += numbers[i];
+#	
+#
+#  (source:  http://www.robertwinkler.com/projects/mips_book/mips_book.html#_looping_through_arrays)
+
+
+	li    $t0, 0     # total = 0
+	li    $t1, 0     # i = 0
+	la    $t2, numbers   # t2 = numbers
+	li    $t3, 10
+sum_loop:
+	sll   $t4, $t1, 2    # t4 = i*sizeof(int) == i*4
+	add   $t4, $t4, $t2  # t4 = &numbers[i]
+	lw    $t4, 0($t4)    # t4 = numbers[i]
+	add   $t0, $t0, $t4  # total += numbers[i]
+
+	addi  $t1, $t1, 1    # i++
+	blt   $t1, $t3, sum_loop   # while (i < 10)
