@@ -69,9 +69,30 @@
 
         li $v0, 10
         syscall
-    add4:
-        # add4 is a leaf function. Therefore, no stack space needs to be allocated for return address or arguments. Furthermore, no t-registers or s-registers are used, so add4 doesn't need to save anything on the stack.
-        add $v0, $a0, $a1
-        add $v0, $v0, $a2
-        add $v0, $v0, $a3
-        jr $ra
+
+    reverse5:
+        # Save initial location of stack pointer for loop exit condition later on:
+        move $t0, $sp
+        # $s0 need not be saved because it's not used by this function
+        lw $t1, 0($sp) # Load the 5th argument "Y" from 
+        # reserve5 is a leaf function. Therefore, no stack space needs to be allocated for return address or arguments.
+        addi $sp, $sp, -20
+        sw $a0, 16($sp)
+        sw $a1, 12($sp)
+        sw $a2, 8($sp)
+        sw $a3, 4($sp)
+        sw $t1, 0($sp)
+
+        loop:
+            # load and print the char at the "top" of the stack:
+            lw $a0, ($sp)
+            li $v0, 11
+            syscall
+            # pop char off "top" of the stack:
+            addu $sp, $sp, 4
+            # if $a0 equal to first char, then end function:
+            beq $sp, $t0, return
+            j loop
+
+        return:
+            jr $ra
