@@ -37,7 +37,7 @@ main:
         
         # From a conventional point of view the registers $t0-$t9 are 'temporary', so I can use them  
         # without any restrictions. Almost every other registers including $s0-$s7, are "preserved on call"  
-        # which means that if you use them is a function you should restore them with their original  
+        # which means that if you use them in a function you should restore them with their original  
         # values right before exiting the function.  
         lw $t0, 0($sp)  # pop a word from the stack -- the most recent word is popped first
         lw $t1, 4($sp)  # pop a word from the stack -- the first word is popped last 
