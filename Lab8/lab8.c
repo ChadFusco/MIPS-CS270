@@ -10,7 +10,6 @@ int f(int a, int b, int c, int d) {
     if (a > b) {
        return (c + d);
     }
-    return 0;
 }  // end f
 
 int main() {

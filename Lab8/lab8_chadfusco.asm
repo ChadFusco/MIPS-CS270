@@ -31,9 +31,27 @@
 # All integer values are 32 bits long. 
 # All values returned from a function must be stored in the $v0 register.
 
-.data
-
-.globl main
-
 .text
 	main:
+		addi $a0, $zero, 7
+		addi $a1, $zero, 12
+		addi $a2, $zero, 19
+		addi $a3, $zero, 41
+		jal f
+		j end
+	f:
+		slt $t0, $a0, $a1	# t0 = 1 if a < b
+		beq $t0, $zero, else	# branch to else if t0 = 0
+		move $v0, $a2	# return int c
+		jr $ra
+
+		else:
+			slt $t0, $a1, $a0	# t0 = 1 if b < a
+			beq $t0, $zero, elseend		# branch to elseend if t0 = 0
+			add $v0, $a2, $a3	# return int c + int d
+			jr $ra
+
+		elseend:
+			move $v0, $a3	# return int d
+			jr $ra
+	end:
