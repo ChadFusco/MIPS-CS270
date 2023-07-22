@@ -1,1 +1,4 @@
 /hidden
+
+# Hide binary .out files
+*.out

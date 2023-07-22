@@ -16,7 +16,7 @@ int f(int a, int b, int c, int d) {
 int main() {
       int result = 0;
    
-      result = f(7,12,19,41);
+      result = f(7,12,19,41); // should be 19
 
       printf("result: %d\n", result);
 
